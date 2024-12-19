@@ -4,6 +4,6 @@
 - [ ] Absent Calculator
 - [ ] Integration with Google Calendar
 
-## Make Something People Want
+### Making Something People Want.
 
 
