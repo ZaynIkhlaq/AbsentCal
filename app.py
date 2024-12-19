@@ -38,6 +38,6 @@ if attendance_info:
         if allowed_absences > 0:
             st.write(f"You can afford to miss {int(allowed_absences)} more classes while staying above 75%")
         else:
-            st.write("Warning: You cannot afford to miss any more classes to maintain 75% attendance")
+            st.write("Warning: You cannot afford to miss any more classes to maintain 75 attendance")
             if current_percentage < 75:
                 st.error("Your attendance is already below 75%!")
