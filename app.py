@@ -28,16 +28,22 @@ if attendance_info:
         # Calculate current attendance percentage
         current_percentage = (attended_classes / total_classes) * 100
         
-        # Calculate how many more classes can be missed while staying above 75%
-        min_classes_needed = total_classes * 0.75  # 75% of total classes
-        allowed_absences = attended_classes - min_classes_needed
+        # Calculate maximum absences allowed
+        # For attendance to stay above 75%, we need: (attended_classes - x)/(total_classes) >= 0.75
+        # Where x is the number of classes that can be missed
+        # Solving for x: x <= attended_classes - (0.75 * total_classes)
+        max_absences = attended_classes - (0.75 * total_classes)
         
         # Display results
         st.write(f"Current Attendance: {current_percentage:.2f}%")
         
-        if allowed_absences > 0:
-            st.write(f"You can afford to miss {int(allowed_absences)} more classes while staying above 75%")
+        if max_absences > 0:
+            st.write(f"You can afford to miss {int(max_absences)} more classes while staying above 75%")
         else:
-            st.write("Warning: You cannot afford to miss any more classes to maintain 75 attendance")
-            if current_percentage < 75:
+            if current_percentage >= 75:
+                st.warning("You cannot afford to miss any more classes to maintain 75% attendance")
+            else:
                 st.error("Your attendance is already below 75%!")
+                # Calculate classes needed to reach 75%
+                classes_needed = int((0.75 * total_classes) - attended_classes)
+                st.write(f"You need to attend {classes_needed} more classes to reach 75% attendance")
